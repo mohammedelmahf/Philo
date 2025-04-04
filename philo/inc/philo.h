@@ -6,7 +6,7 @@
 /*   By: maelmahf <maelmahf@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 18:56:28 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/04/04 17:15:59 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/04/04 18:27:07 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <limits.h>
+# include <pthread.h>
 typedef struct s_philo
 {
     
