@@ -6,7 +6,7 @@
 /*   By: maelmahf <maelmahf@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 18:58:40 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/04/04 17:06:32 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/04/04 17:18:19 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int     init_args(t_params *p, char **av)
 {
     int mutex;
 
+    (void) mutex;
     mutex = -1;
     
     p->num = ft_atoi(av[1]);
@@ -32,12 +33,9 @@ int     init_args(t_params *p, char **av)
         p->max_iter = ft_atoi(av[5]);
     }
     p->over = 0;
-    if(p->num > 0)
-        mutex = init_args_mutex(p);
-        
-    
-    
-    
+    // if(p->num > 0)
+    //     mutex = init_args_mutex(p);
+    return 0;
 }
 
 int main(int ac , char **av)
@@ -45,5 +43,5 @@ int main(int ac , char **av)
     t_params args;
 
     if((ac != 5 && ac != 6) || init_args(&args , av))
-        return(error_message("Error : invalid argument"));
+        return(error_msg("Error : invalid argument\n", &args, 0, 1));
 }
