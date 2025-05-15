@@ -8,8 +8,10 @@ LIB = -lpthread
 
 SRC =   src/main.c \
 		src/utils.c \
-		src/ft_atoi.c
-
+		src/utils/ft_atoi.c\
+		src/utils/ft_isdigit.c \
+		src/utils/ft_isnumber.c \
+		src/utils/ft_strlen.c
 OBJ = $(SRC:.c=.o)
 
 .c.o:

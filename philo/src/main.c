@@ -3,45 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maelmahf <maelmahf@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 18:58:40 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/04/04 17:18:19 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/05/15 13:04:33 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-int     init_args(t_params *p, char **av)
+void check_args(int ac, char **av)
 {
-    int mutex;
+    int i;
+    long num;
 
-    (void) mutex;
-    mutex = -1;
+    i = 0;
+    if (ac < 5 || ac > 6)
+        error_msg("Error: Wrong number of arguments\n", 1);
     
-    p->num = ft_atoi(av[1]);
-    p->t2d = ft_atoi(av[2]);
-    p->t2e = ft_atoi(av[3]);
-    p->t2s = ft_atoi(av[4]);
-    p->max_iter = -2;
-    p->check_meal = 0;
-    p->start = 0;
-    p->ready = 0;
-    if(av[5])
+    while(++i < ac)
     {
-        p->check_meal = 1;
-        p->max_iter = ft_atoi(av[5]);
+        num = ft_atoi(av[i]);
+        if(!is_number(av[i]))
+            error_msg("Error: Argument Not Numeric ERROR\n", 1);
+        else if(i ==1 && (num < 1 || num > PHILO_MAX_COUNT))
+            error_msg("Error: Argument Error\n", 1);
+        else if(i == 5 && (num < 0 || num > INT_MAX))
+            error_msg("Error: Argument Error\n", 1);
+        else if(i != 5 && i != 1 && (num < 0 || num > INT_MAX))
+            error_msg("Error: Argument Error\n", 1);
     }
-    p->over = 0;
-    // if(p->num > 0)
-    //     mutex = init_args_mutex(p);
-    return 0;
 }
 
 int main(int ac , char **av)
 {
-    t_params args;
-
-    if((ac != 5 && ac != 6) || init_args(&args , av))
-        return(error_msg("Error : invalid argument\n", &args, 0, 1));
+    t_philo  philos[PHILO_MAX_COUNT];
+    t_mutex     forks[PHILO_MAX_COUNT];
+    t_engine    engine;
+    
+    check_args(ac, av);
+    check_engine(&engine, philos, forks); 
 }
