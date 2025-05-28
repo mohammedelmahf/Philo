@@ -6,7 +6,7 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 10:56:02 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/05/28 12:24:51 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/05/28 12:25:36 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void    observer(void *ptr)
                 pthread_mutex_unlock(philos->mutexes.meal_lock);
                 print_action(&philos[i], RED" died"RESET);
                 pthread_mutex_lock(philos->mutexes.write_lock);
-                return (NULL);
+                return ;
             }
             pthread_mutex_unlock(philos->mutexes.meal_lock);
         }

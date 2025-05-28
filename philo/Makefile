@@ -12,7 +12,7 @@ SRC =   src/main.c \
 		src/utils/ft_isdigit.c \
 		src/utils/ft_isnumber.c \
 		src/utils/ft_strlen.c \
-		src/init_philos.c \
+		src/init_philo.c \
 		src/simulation.c 
 OBJ = $(SRC:.c=.o)
 
