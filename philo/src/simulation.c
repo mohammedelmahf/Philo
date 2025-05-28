@@ -6,7 +6,7 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 10:56:02 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/05/28 11:50:42 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/05/28 12:24:51 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void    observer(void *ptr)
         i = -1;
         while(++i < philos[0].philo_count)
         {
-            pthread_mutex_lock(philos[i].mutexes.meal_lock);
+            pthread_mutex_lock(philos->mutexes.meal_lock);
             if(get_current_time() - philos[i].times.last_meal > philos[i].times.die)
             {
                 pthread_mutex_unlock(philos->mutexes.meal_lock);
@@ -31,7 +31,7 @@ void    observer(void *ptr)
                 pthread_mutex_lock(philos->mutexes.write_lock);
                 return (NULL);
             }
-            pthread_mutex_unlock();
+            pthread_mutex_unlock(philos->mutexes.meal_lock);
         }
     }
 }
