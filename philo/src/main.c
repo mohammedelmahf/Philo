@@ -6,7 +6,7 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 18:58:40 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/05/15 13:04:33 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/05/28 11:15:59 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,8 @@ int main(int ac , char **av)
     t_engine    engine;
     
     check_args(ac, av);
-    check_engine(&engine, philos, forks); 
+    init_engine(&engine, philos, forks); 
+    init_forks(&engine, forks, ft_atoi(av[1]));
+    init_philos(&engine, philos, forks, av);
+    launcher(&engine, philos[0].philo_count);
 }
