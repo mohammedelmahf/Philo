@@ -6,13 +6,13 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 10:56:02 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/05/28 12:25:36 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/02 09:52:38 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void    observer(void *ptr)
+void    *observer(void *ptr)
 {
     t_philo *philos;
     int i;
@@ -29,11 +29,14 @@ void    observer(void *ptr)
                 pthread_mutex_unlock(philos->mutexes.meal_lock);
                 print_action(&philos[i], RED" died"RESET);
                 pthread_mutex_lock(philos->mutexes.write_lock);
-                return ;
+                return (NULL);
             }
             pthread_mutex_unlock(philos->mutexes.meal_lock);
         }
+        if (is_all_eat(philos))
+            return (NULL); 
     }
+    return (NULL);
 }
 
 void    lancher(t_engine *engine, int count)

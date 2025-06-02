@@ -6,7 +6,7 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 17:02:27 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/05/28 11:27:52 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/02 09:50:35 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@
 //     }
 //     return(printf("%s" , msg));
 // }
+
+void	destroy_all(t_engine *engine, char *str, int count, int signal)
+{
+	
+}
 
 void error_msg(char *text, int signal)
 {

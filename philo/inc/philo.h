@@ -6,7 +6,7 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 18:56:28 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/05/28 11:29:16 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/02 09:50:44 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,9 @@ void error_msg(char *text, int signal);
 void check_args(int ac, char **av);
 void init_engine(t_engine *engine , t_philo *philos , t_mutex *forks);
 void init_forks(t_engine *engine, t_mutex *forks, int count);
+void    lancher(t_engine *engine, int count);
+void    observer(void *ptr);
+void	destroy_all(t_engine *engine, char *str, int count, int signal);
 // int error_msg(char *msg ,t_params *args,t_philo *p ,  int malloc);
 
 
