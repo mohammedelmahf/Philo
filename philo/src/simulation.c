@@ -6,7 +6,7 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 10:56:02 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/06/03 12:00:07 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/03 13:06:02 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void    launcher(t_engine *engine, int count)
     t_id  observer_id;
     int i;
 
-    i = -1;
+    i = -1; 
     if(pthread_create(&observer_id , NULL, &observer , engine->philos)  != 0)
         destroy_all(engine, "[Thread Creation ERROR]\n", count, 1);
     while(++i < count)
