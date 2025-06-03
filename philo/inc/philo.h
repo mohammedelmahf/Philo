@@ -6,7 +6,7 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 18:56:28 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/06/03 11:08:08 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/03 11:50:57 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <pthread.h>
 #include <unistd.h>
 #include <sys/time.h>
+#include <stdbool.h>
 
 # define PHILO_MAX_COUNT 200
 # define PHILO_MAX_TIME 1000000
@@ -92,6 +93,7 @@ void init_engine(t_engine *engine , t_philo *philos , t_mutex *forks);
 void init_forks(t_engine *engine, t_mutex *forks, int count);
 void    launcher(t_engine *engine, int count);
 void    *observer(void *ptr);
+bool	is_all_eat(t_philo *philos);
 void	destroy_all(t_engine *engine, char *str, int count, int signal);
 void    init_philos(t_engine *engine, t_philo *philos, t_mutex *forks, char **av);
 void	ft_usleep(size_t mls);

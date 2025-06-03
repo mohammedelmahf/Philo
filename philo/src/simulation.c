@@ -6,11 +6,35 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 10:56:02 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/06/03 09:34:55 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/03 11:50:17 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
+
+bool	is_all_eat(t_philo *philos)
+{
+	int		finished;
+	int		i;
+
+	i = -1;
+	finished = 0;
+	if (philos[0].must_eat == -1)
+		return (false);
+	while (++i < philos[0].philo_count)
+	{
+		pthread_mutex_lock(philos->mutexes.meal_lock);
+		if (philos[i].meals_eaten >= philos[i].must_eat)
+			++finished;
+		pthread_mutex_unlock(philos->mutexes.meal_lock);
+	}
+	if (finished == philos[0].philo_count)
+	{
+		pthread_mutex_lock(philos->mutexes.write_lock);
+		return (true);
+	}
+	return (false);
+}
 
 void    *observer(void *ptr)
 {
