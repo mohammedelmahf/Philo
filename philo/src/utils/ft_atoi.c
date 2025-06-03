@@ -6,11 +6,12 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 17:15:02 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/05/15 12:34:50 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/03 15:00:02 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/philo.h"
+
 static int	ft_isnumber(const char *s)
 {
 	int	i;
