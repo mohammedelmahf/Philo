@@ -6,7 +6,7 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 12:53:19 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/06/03 15:01:22 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/03 15:07:27 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,9 @@ void	init_forks(t_engine *engine, t_mutex *forks, int count)
 void	init_philos(t_engine *engine, t_philo *philos, t_mutex *forks,
 		char **av)
 {
-	int i;
+	int	i;
 
 	i = -1;
-
 	while (++i < ft_atoi(av[1]))
 	{
 		philos[i].id = i + 1;

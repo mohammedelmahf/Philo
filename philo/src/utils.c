@@ -6,7 +6,7 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 17:02:27 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/06/03 14:59:31 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/03 15:09:44 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 void	destroy_all(t_engine *engine, char *str, int count, int signal)
 {
-	while(--count >= 0)
+	while (--count >= 0)
 		pthread_mutex_destroy(&engine->forks[count]);
 	pthread_mutex_destroy(&engine->write_lock);
 	pthread_mutex_destroy(&engine->meal_lock);
-	error_msg(str , signal);
+	error_msg(str, signal);
 }
 
-void error_msg(char *text, int signal)
+void	error_msg(char *text, int signal)
 {
-    if(text)
-        write(2,text , ft_strlen(text) + 1);
-    exit(signal);
+	if (text)
+		write(2, text, ft_strlen(text) + 1);
+	exit (signal);
 }
 
 void	ft_usleep(size_t mls)

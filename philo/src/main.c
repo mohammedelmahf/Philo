@@ -6,7 +6,7 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 18:58:40 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/05/28 11:15:59 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/03 15:07:33 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ void	check_args(int ac, char **av)
 
 int	main(int ac, char **av)
 {
-	t_philo philos[PHILO_MAX_COUNT];
-	t_mutex forks[PHILO_MAX_COUNT];
-	t_engine engine;
+	t_philo		philos[PHILO_MAX_COUNT];
+	t_mutex		forks[PHILO_MAX_COUNT];
+	t_engine	engine;
 
 	check_args(ac, av);
 	init_engine(&engine, philos, forks);
