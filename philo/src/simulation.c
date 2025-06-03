@@ -6,7 +6,7 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 10:56:02 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/06/03 11:50:17 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/03 12:00:07 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,4 +113,11 @@ void    launcher(t_engine *engine, int count)
             destroy_all(engine, "[Thread Creation ERROR]\n", count, 1);     
     }
     i = -1;
+	if (pthread_join(observer_id, NULL) != 0)
+		destroy_all(engine, "[Thread Join ERROR]\n", count, 1);
+	while (++i < count)
+	{
+		if (pthread_detach(engine->philos[i].thread_id) != 0)
+			destroy_all(engine, "[Thread Detach ERROR]\n", count, 1);
+	}
 }
