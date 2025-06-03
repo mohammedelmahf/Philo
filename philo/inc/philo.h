@@ -6,7 +6,7 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 18:56:28 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/06/02 09:56:21 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/03 09:26:02 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void    launcher(t_engine *engine, int count);
 void    *observer(void *ptr);
 void	destroy_all(t_engine *engine, char *str, int count, int signal);
 void    init_philos(t_engine *engine, t_philo *philos, t_mutex *forks, char **av);
+void	ft_usleep(size_t mls);
 // int error_msg(char *msg ,t_params *args,t_philo *p ,  int malloc);
 
 

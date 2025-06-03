@@ -6,7 +6,7 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 17:02:27 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/06/02 09:58:44 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/03 09:28:59 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,15 @@ void error_msg(char *text, int signal)
     if(text)
         write(2,text , ft_strlen(text) + 1);
     exit(signal);
+}
+
+void	ft_usleep(size_t mls)
+{
+	size_t	start;
+
+	start = get_current_time();
+	while (get_current_time() - start < mls)
+		usleep(500);
 }
 
 void	print_action(t_philo *philo, char *action)
