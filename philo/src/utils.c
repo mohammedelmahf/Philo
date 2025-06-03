@@ -6,7 +6,7 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 17:02:27 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/06/03 09:28:59 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/03 11:05:54 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,13 @@ void	print_action(t_philo *philo, char *action)
 	time = get_current_time() - philo->times.born_time;
 	printf(GREEN"[%ld]"RESET" %d%s\n", time, philo->id, action);
 	pthread_mutex_unlock(philo->mutexes.write_lock);
+}
+
+size_t	get_current_time(void)
+{
+	t_timeval	time;
+
+	if (gettimeofday(&time, NULL) == -1)
+		error_msg("[gettimeofday ERROR]\n", 1);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }

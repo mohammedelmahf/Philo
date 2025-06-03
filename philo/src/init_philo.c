@@ -6,7 +6,7 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 12:53:19 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/05/28 10:54:55 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/03 11:07:30 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void    init_philos(t_engine *engine, t_philo *philos, t_mutex *forks, char **av
         philos[i].must_eat = -1;
         if(av[5])
             philos[i].must_eat = ft_atoi(av[5]);
-        philos[i].meal_eaten = 0;
+        philos[i].meals_eaten = 0;
         philos[i].philo_count = ft_atoi(av[1]);
         philos[i].mutexes.left_fork = &forks[i];
         if(i == 0)
