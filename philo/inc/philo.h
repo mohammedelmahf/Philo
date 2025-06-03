@@ -6,7 +6,7 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 18:56:28 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/06/03 09:26:02 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/03 09:34:27 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct s_philo
 	t_mutexes		mutexes;
 	int				must_eat;
 	t_id			thread_id;
-	int				meal_eaten;
+	int				meals_eaten;
 	int				philo_count;
 	t_times			times;
 }     t_philo;
@@ -94,6 +94,7 @@ void    *observer(void *ptr);
 void	destroy_all(t_engine *engine, char *str, int count, int signal);
 void    init_philos(t_engine *engine, t_philo *philos, t_mutex *forks, char **av);
 void	ft_usleep(size_t mls);
+void	philo_routine(t_philo *philo);
 // int error_msg(char *msg ,t_params *args,t_philo *p ,  int malloc);
 
 

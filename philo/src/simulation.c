@@ -6,7 +6,7 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 10:56:02 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/06/03 09:26:48 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/03 09:34:01 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,25 @@ void    *observer(void *ptr)
     return (NULL);
 }
 
+void	philo_routine(t_philo *philo)
+{
+	pthread_mutex_lock(philo->mutexes.left_fork);
+	print_action(philo, " has taken a fork");
+	pthread_mutex_lock(philo->mutexes.right_fork);
+	print_action(philo, " has taken a fork");
+	pthread_mutex_lock(philo->mutexes.meal_lock);
+	print_action(philo, " is eating");
+	philo->times.last_meal = get_current_time();
+	philo->meals_eaten += 1;
+	pthread_mutex_unlock(philo->mutexes.meal_lock);
+	ft_usleep(philo->times.eat);
+	pthread_mutex_unlock(philo->mutexes.left_fork);
+	pthread_mutex_unlock(philo->mutexes.right_fork);
+	print_action(philo, " is sleeping");
+	ft_usleep(philo->times.sleep);
+	print_action(philo, " is thinking");
+}
+
 void    *start_simulation(void *ptr)
 {
     t_philo *philo;
@@ -46,6 +65,13 @@ void    *start_simulation(void *ptr)
     philo = (t_philo *)ptr;
     if(philo->id % 2 == 0)
         ft_usleep(1);
+    pthread_mutex_lock(philo->mutexes.meal_lock);
+    philo->times.born_time = get_current_time();
+    philo->times.last_meal = get_current_time();
+    pthread_mutex_unlock(philo->mutexes.meal_lock);
+    while(1)
+        philo_routine(philo);
+    return (NULL);
 }
 
 void    launcher(t_engine *engine, int count)
