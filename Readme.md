@@ -2,7 +2,7 @@
 
 
                         Scenario: Philosopher Thread vs Monitor Thread
-                        
+
                     +----------------------+        +------------------------+
                     | Philosopher Thread   |        | Monitor (Death Checker)|
                     +----------------------+        +------------------------+
@@ -24,3 +24,5 @@
                                                     | READ last_meal         |
                                                     | UNLOCK meal_lock       |
                                                     +------------------------+
+
+

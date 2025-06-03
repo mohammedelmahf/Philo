@@ -6,7 +6,7 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 10:56:02 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/06/03 09:34:01 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/03 09:34:55 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,5 @@ void    launcher(t_engine *engine, int count)
             start_simulation , &engine->philos[i]) != 0)
             destroy_all(engine, "[Thread Creation ERROR]\n", count, 1);     
     }
+    i = -1;
 }
