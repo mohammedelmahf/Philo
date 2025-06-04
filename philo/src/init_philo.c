@@ -6,60 +6,68 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 12:53:19 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/06/03 15:07:27 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/04 14:15:27 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void	init_engine(t_engine *engine, t_philo *philos, t_mutex *forks)
+void	init_input(t_philo *philo, char **argv)
 {
-	engine->forks = forks;
-	engine->philos = philos;
-	if (!engine || !philos || !forks)
-		error_msg("Error: Engine Initialization Failed\n", EXIT_FAILURE);
-	if (pthread_mutex_init(&engine->meal_lock, NULL) != 0
-		|| pthread_mutex_init(&engine->write_lock, NULL) != 0)
-		destroy_all(engine, "Mutex Initialization Failed\n", -1, 1);
+	philo->time_to_die = ft_atoi(argv[2]);
+	philo->time_to_eat = ft_atoi(argv[3]);
+	philo->time_to_sleep = ft_atoi(argv[4]);
+	philo->num_of_philos = ft_atoi(argv[1]);
+	if (argv[5])
+		philo->num_times_to_eat = ft_atoi(argv[5]);
+	else
+		philo->num_times_to_eat = -1;
 }
 
-void	init_forks(t_engine *engine, t_mutex *forks, int count)
+void	init_philos(t_philo *philos, t_program *program, pthread_mutex_t *forks,
+		char **argv)
 {
 	int	i;
 
-	i = -1;
-	while (++i < count)
-	{
-		if (pthread_mutex_init(&forks[i], NULL) != 0)
-			destroy_all(engine, "[Mutex Init ERROR]\n", i, 1);
-	}
-}
-
-void	init_philos(t_engine *engine, t_philo *philos, t_mutex *forks,
-		char **av)
-{
-	int	i;
-
-	i = -1;
-	while (++i < ft_atoi(av[1]))
+	i = 0;
+	while (i < ft_atoi(argv[1]))
 	{
 		philos[i].id = i + 1;
-		philos[i].times.die = ft_atoi(av[2]);
-		philos[i].times.eat = ft_atoi(av[3]);
-		philos[i].times.sleep = ft_atoi(av[4]);
-		philos[i].times.last_meal = get_current_time();
-		philos[i].times.born_time = get_current_time();
-		philos[i].must_eat = -1;
-		if (av[5])
-			philos[i].must_eat = ft_atoi(av[5]);
+		philos[i].eating = 0;
 		philos[i].meals_eaten = 0;
-		philos[i].philo_count = ft_atoi(av[1]);
-		philos[i].mutexes.left_fork = &forks[i];
+		init_input(&philos[i], argv);
+		philos[i].start_time = get_current_time();
+		philos[i].last_meal = get_current_time();
+		philos[i].write_lock = &program->write_lock;
+		philos[i].dead_lock = &program->dead_lock;
+		philos[i].meal_lock = &program->meal_lock;
+		philos[i].dead = &program->dead_flag;
+		philos[i].l_fork = &forks[i];
 		if (i == 0)
-			philos[i].mutexes.right_fork = &forks[philos[i].philo_count - 1];
+			philos[i].r_fork = &forks[philos[i].num_of_philos - 1];
 		else
-			philos[i].mutexes.right_fork = &forks[i - 1];
-		philos[i].mutexes.write_lock = &engine->write_lock;
-		philos[i].mutexes.meal_lock = &engine->meal_lock;
+			philos[i].r_fork = &forks[i - 1];
+		i++;
 	}
+}
+
+void	init_forks(pthread_mutex_t *forks, int philo_num)
+{
+	int	i;
+
+	i = 0;
+	while (i < philo_num)
+	{
+		pthread_mutex_init(&forks[i], NULL);
+		i++;
+	}
+}
+
+void	init_program(t_program *program, t_philo *philos)
+{
+	program->dead_flag = 0;
+	program->philos = philos;
+	pthread_mutex_init(&program->write_lock, NULL);
+	pthread_mutex_init(&program->dead_lock, NULL);
+	pthread_mutex_init(&program->meal_lock, NULL);
 }

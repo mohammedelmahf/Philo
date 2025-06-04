@@ -6,119 +6,44 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 10:56:02 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/06/03 13:06:02 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/04 21:39:14 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-bool	is_all_eat(t_philo *philos)
-{
-	int	finished;
-	int	i;
 
-	i = -1;
-	finished = 0;
-	if (philos[0].must_eat == -1)
-		return (false);
-	while (++i < philos[0].philo_count)
-	{
-		pthread_mutex_lock(philos->mutexes.meal_lock);
-		if (philos[i].meals_eaten >= philos[i].must_eat)
-			++finished;
-		pthread_mutex_unlock(philos->mutexes.meal_lock);
-	}
-	if (finished == philos[0].philo_count)
-	{
-		pthread_mutex_lock(philos->mutexes.write_lock);
-		return (true);
-	}
-	return (false);
+void	think(t_philo *philo)
+{
+	print_message("is thinking", philo, philo->id);
 }
 
-void	*observer(void *ptr)
+void	dream(t_philo *philo)
 {
-	t_philo	*philos;
-	int		i;
-
-	philos = (t_philo *)ptr;
-	while (1)
-	{
-		i = -1;
-		while (++i < philos[0].philo_count)
-		{
-			pthread_mutex_lock(philos->mutexes.meal_lock);
-			if (get_current_time()
-				- philos[i].times.last_meal > philos[i].times.die)
-			{
-				pthread_mutex_unlock(philos->mutexes.meal_lock);
-				print_action(&philos[i], RED " died" RESET);
-				pthread_mutex_lock(philos->mutexes.write_lock);
-				return (NULL);
-			}
-			pthread_mutex_unlock(philos->mutexes.meal_lock);
-		}
-		if (is_all_eat(philos))
-			return (NULL);
-	}
-	return (NULL);
+	print_message("is sleeping", philo, philo->id);
+	ft_usleep(philo->time_to_sleep);
 }
 
-void	philo_routine(t_philo *philo)
+void	eat(t_philo *philo)
 {
-	pthread_mutex_lock(philo->mutexes.left_fork);
-	print_action(philo, " has taken a fork");
-	pthread_mutex_lock(philo->mutexes.right_fork);
-	print_action(philo, " has taken a fork");
-	pthread_mutex_lock(philo->mutexes.meal_lock);
-	print_action(philo, " is eating");
-	philo->times.last_meal = get_current_time();
-	philo->meals_eaten += 1;
-	pthread_mutex_unlock(philo->mutexes.meal_lock);
-	ft_usleep(philo->times.eat);
-	pthread_mutex_unlock(philo->mutexes.left_fork);
-	pthread_mutex_unlock(philo->mutexes.right_fork);
-	print_action(philo, " is sleeping");
-	ft_usleep(philo->times.sleep);
-	print_action(philo, " is thinking");
-}
-
-void	*start_simulation(void *ptr)
-{
-	t_philo	*philo;
-
-	philo = (t_philo *)ptr;
-	if (philo->id % 2 == 0)
-		ft_usleep(1);
-	pthread_mutex_lock(philo->mutexes.meal_lock);
-	philo->times.born_time = get_current_time();
-	philo->times.last_meal = get_current_time();
-	pthread_mutex_unlock(philo->mutexes.meal_lock);
-	while (1)
-		philo_routine(philo);
-	return (NULL);
-}
-
-void	launcher(t_engine *engine, int count)
-{
-	t_id	observer_id;
-	int		i;
-
-	i = -1;
-	if (pthread_create(&observer_id, NULL, &observer, engine->philos) != 0)
-		destroy_all(engine, "[Thread Creation ERROR]\n", count, 1);
-	while (++i < count)
+	pthread_mutex_lock(philo->r_fork);
+	print_message("has taken a fork", philo, philo->id);
+	if (philo->num_of_philos == 1)
 	{
-		if (pthread_create(&engine->philos[i].thread_id, NULL, start_simulation,
-				&engine->philos[i]) != 0)
-			destroy_all(engine, "[Thread Creation ERROR]\n", count, 1);
+		ft_usleep(philo->time_to_die);
+		pthread_mutex_unlock(philo->r_fork);
+		return ;
 	}
-	i = -1;
-	if (pthread_join(observer_id, NULL) != 0)
-		destroy_all(engine, "[Thread Join ERROR]\n", count, 1);
-	while (++i < count)
-	{
-		if (pthread_detach(engine->philos[i].thread_id) != 0)
-			destroy_all(engine, "[Thread Detach ERROR]\n", count, 1);
-	}
+	pthread_mutex_lock(philo->l_fork);
+	print_message("has taken a fork", philo, philo->id);
+	philo->eating = 1;
+	print_message("is eating", philo, philo->id);
+	pthread_mutex_lock(philo->meal_lock);
+	philo->last_meal = get_current_time();
+	philo->meals_eaten++;
+	pthread_mutex_unlock(philo->meal_lock);
+	ft_usleep(philo->time_to_eat);
+	philo->eating = 0;
+	pthread_mutex_unlock(philo->l_fork);
+	pthread_mutex_unlock(philo->r_fork);
 }

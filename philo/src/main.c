@@ -6,43 +6,57 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 18:58:40 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/06/03 15:07:33 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/04 14:15:19 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void	check_args(int ac, char **av)
+int	check_arg_content(char *arg)
 {
-	int		i;
-	long	num;
+	int	i;
 
 	i = 0;
-	if (ac < 5 || ac > 6)
-		error_msg("Error: Wrong number of arguments\n", 1);
-	while (++i < ac)
+	while (arg[i] != '\0')
 	{
-		num = ft_atoi(av[i]);
-		if (!is_number(av[i]))
-			error_msg("Error: Argument Not Numeric ERROR\n", 1);
-		else if (i == 1 && (num < 1 || num > PHILO_MAX_COUNT))
-			error_msg("Error: Argument Error\n", 1);
-		else if (i == 5 && (num < 0 || num > INT_MAX))
-			error_msg("Error: Argument Error\n", 1);
-		else if (i != 5 && i != 1 && (num < 0 || num > INT_MAX))
-			error_msg("Error: Argument Error\n", 1);
+		if (arg[i] < '0' || arg[i] > '9')
+			return (1);
+		i++;
 	}
+	return (0);
 }
 
-int	main(int ac, char **av)
+int	check_valid_args(char **argv)
 {
-	t_philo		philos[PHILO_MAX_COUNT];
-	t_mutex		forks[PHILO_MAX_COUNT];
-	t_engine	engine;
+	if (ft_atoi(argv[1]) > PHILO_MAX || ft_atoi(argv[1]) <= 0
+		|| check_arg_content(argv[1]) == 1)
+		return (write(2, "Invalid philosophers number\n", 29), 1);
+	if (ft_atoi(argv[2]) <= 0 || check_arg_content(argv[2]) == 1)
+		return (write(2, "Invalid time to die\n", 21), 1);
+	if (ft_atoi(argv[3]) <= 0 || check_arg_content(argv[3]) == 1)
+		return (write(2, "Invalid time to eat\n", 21), 1);
+	if (ft_atoi(argv[4]) <= 0 || check_arg_content(argv[4]) == 1)
+		return (write(2, "Invalid time to sleep\n", 23), 1);
+	if (argv[5] && (ft_atoi(argv[5]) < 0 || check_arg_content(argv[5]) == 1))
+		return (write(2, "Invalid number of times each philosopher must eat\n",
+				51), 1);
+	return (0);
+}
 
-	check_args(ac, av);
-	init_engine(&engine, philos, forks);
-	init_forks(&engine, forks, ft_atoi(av[1]));
-	init_philos(&engine, philos, forks, av);
-	launcher(&engine, philos[0].philo_count);
+int	main(int argc, char **argv)
+{
+	t_program		program;
+	t_philo			philos[PHILO_MAX];
+	pthread_mutex_t	forks[PHILO_MAX];
+
+	if (argc != 5 && argc != 6)
+		return (write(2, "Wrong argument count\n", 22), 1);
+	if (check_valid_args(argv) == 1)
+		return (1);
+	init_program(&program, philos);
+	init_forks(forks, ft_atoi(argv[1]));
+	init_philos(philos, &program, forks, argv);
+	thread_create(&program, forks);
+	destory_all(NULL, &program, forks);
+	return (0);
 }

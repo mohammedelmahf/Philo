@@ -2,18 +2,16 @@ NAME = philo
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g 
-#CFLAGS += -fsanitize=address
+# CFLAGS += -fsanitize=thread
 
 LIB = -lpthread
 
 SRC =   src/main.c \
 		src/utils.c \
-		src/utils/ft_atoi.c\
-		src/utils/ft_isdigit.c \
-		src/utils/ft_isnumber.c \
-		src/utils/ft_strlen.c \
 		src/init_philo.c \
-		src/simulation.c 
+		src/simulation.c \
+		src/observer.c \
+		src/threads.c 
 OBJ = $(SRC:.c=.o)
 
 .c.o:
