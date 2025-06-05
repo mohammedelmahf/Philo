@@ -6,7 +6,7 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 11:37:14 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/06/04 21:33:54 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/05 09:10:57 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	*philo_routine(void *pointer)
 
 	philo = (t_philo *)pointer;
 	if (philo->id % 2 == 0)
-		ft_usleep(1);
+		ft_usleep(200);
 	while (!dead_loop(philo))
 	{
 		eat(philo);

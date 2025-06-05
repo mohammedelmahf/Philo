@@ -6,12 +6,11 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 10:56:02 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/06/04 21:39:14 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/05 10:30:54 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
-
 
 void	think(t_philo *philo)
 {

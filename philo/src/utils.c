@@ -6,7 +6,7 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 17:02:27 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/06/04 21:35:10 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/05 10:31:12 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	ft_strlen(char *str)
 		i++;
 	return (i);
 }
+
 int	ft_atoi(char *str)
 {
 	unsigned long long	nb;

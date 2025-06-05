@@ -6,11 +6,9 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 18:56:28 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/06/04 14:12:35 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/05 10:31:03 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #ifndef PHILO_H
 # define PHILO_H
