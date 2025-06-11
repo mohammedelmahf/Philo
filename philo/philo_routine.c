@@ -6,7 +6,7 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 13:58:23 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/06/11 14:06:29 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/11 14:46:41 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ void	print_action(t_philo *philo, char *action)
 		pthread_mutex_unlock(&philo->program->print_lock);
 		return ;
 	}
-	printf(GREEN"[%lld]"RESET" %d %s\n", get_time() - philo->program->start_time, philo->id,
+	printf(GREEN"[%lld]"RESET" %d %s\n",
+		get_time() - philo->program->start_time,
+		philo->id,
 		action);
 	pthread_mutex_unlock(&philo->program->print_lock);
 }

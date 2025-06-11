@@ -6,7 +6,7 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 13:58:44 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/06/11 14:04:19 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/11 14:44:46 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ int	init_philosophers(t_program *program)
 		philo->last_meal_time = program->start_time;
 		philo->l_fork = &program->forks[i];
 		philo->r_fork = &program->forks[(i + 1) % program->nbr_philo];
-		program->philos[i].last_meal_time_lock = &program->last_meal_time_locks[i];
+		program->philos[i].last_meal_time_lock
+			= &program->last_meal_time_locks[i];
 		philo->meal_lock = &program->meal_locks[i];
 		i++;
 	}

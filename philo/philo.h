@@ -6,7 +6,7 @@
 /*   By: maelmahf <maelmahf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 13:50:11 by maelmahf          #+#    #+#             */
-/*   Updated: 2025/06/11 14:08:24 by maelmahf         ###   ########.fr       */
+/*   Updated: 2025/06/11 14:45:01 by maelmahf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_philo
 	pthread_mutex_t	*last_meal_time_lock;
 	long long		last_meal_time;
 	int				meals_eaten;
-	t_program			*program;
+	t_program		*program;
 }					t_philo;
 
 int					ft_atoi(char *str, t_program *args);
