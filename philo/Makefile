@@ -1,33 +1,23 @@
-NAME = philo
+NAME := philo
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g 
-# CFLAGS += -fsanitize=thread
+SRCS := main.c philo_utils.c init.c \
+		parse.c philo_routine.c  monitor.c \
+		lock_forks.c actions.c philo_utils2.c
 
-LIB = -lpthread
+OBJS := $(SRCS:.c=.o)
+CC = cc -g3
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=thread
+all : $(NAME)
 
-SRC =   src/main.c \
-		src/utils.c \
-		src/init_philo.c \
-		src/simulation.c \
-		src/observer.c \
-		src/threads.c 
-OBJ = $(SRC:.c=.o)
+$(NAME) : $(OBJS)
+	$(CC) $(CFLAGS) $(SRCS) -o $(NAME)
 
-.c.o:
-	@$(CC) $(CFLAGS) $< -o $@
+clean :
+	rm -f $(OBJS)
 
-$(NAME): $(LIBFT) $(SRC)
-		$(CC) $(SRC) $(CFLAGS) $(LIB) -o $(NAME)
+fclean : clean
+	rm -f $(NAME)
 
-all: $(NAME)
+re : fclean all
 
-clean:
-		@rm -rf $(OBJ)
-
-fclean: clean
-		@rm -rf $(NAME)
-
-re:	fclean all
-
-.PHONY: all clean fclean re
+.PHONY 	: clean
